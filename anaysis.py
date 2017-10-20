@@ -7,6 +7,9 @@ Created on 2017/9/12 19:43
 """
 from __future__ import print_function
 
+from PIL import Image, ImageSequence
+import numpy as np
+
 import jieba.analyse
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
@@ -14,10 +17,16 @@ from wordcloud import WordCloud
 jieba.load_userdict("namedict.txt")
 
 # 设置相关的文件路径
-bg_image_path = "pic/image2.jpg"
-text_path = 'jsjs.txt'
+bg_image_path = "pic/tony.png"
+# text_path = 'jsjs.txt'
+text_path = 'adcamie.txt'
+# text_path = 'customInput.txt'
 font_path = 'msyh.ttf'
 stopwords_path = 'stopword.txt'
+
+# 初始化图片
+image = Image.open('pic/ttt.jpg')
+graph = np.array(image)
 
 
 def clean_using_stopword(text):
@@ -58,7 +67,7 @@ def extract_keywords():
     """
     # 抽取1000个关键词，带权重，后面需要根据权重来生成词云
     allow_pos = ('nr',) # 词性
-    tags = jieba.analyse.extract_tags(preprocessing(), 1500, withWeight=True,allowPOS=)
+    tags = jieba.analyse.extract_tags(preprocessing(), 1500, withWeight=True,allowPOS=False)
     keywords = dict()
     for i in tags:
         print("%s---%f" % (i[0], i[1]))
@@ -76,7 +85,7 @@ def draw_wordcloud():
     wc = WordCloud(font_path=font_path,  # 设置字体
                    background_color="white",  # 背景颜色
                    max_words=2000,  # 词云显示的最大词数
-                   mask=back_coloring,  # 设置背景图片
+                   mask=graph,  # 设置背景图片
                    )
 
     # 根据频率生成词云
